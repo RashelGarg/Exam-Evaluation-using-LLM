@@ -1,0 +1,38 @@
+questions,model_answer,student_answer,total_marks,teacher_marks
+What is a meridian?,"A circle passing through zenith, nadir, and celestial poles.","A circle in the sky that goes from top to bottom.",5,4
+What is the celestial equator?,Earth's equator projected onto the celestial sphere.,"The line across the middle of the sky like Earth’s equator.",5,4
+What is the ecliptic?,The Sun's apparent yearly path across the celestial sphere.,"The path the Sun follows through the stars.",5,4
+What is a constellation?,"A group of stars forming a recognizable pattern, often named after myths.","A group of stars making a shape like Orion.",5,4
+Name 3 constellations.,"Orion, Ursa Major, Scorpius.","Orion, the Big Dipper, and Scorpius.",5,4
+Why do constellations seem to move?,Earth's rotation and orbit around the Sun.,"Because the Earth spins and moves around the Sun.",5,4
+What is the zodiac?,"12 constellations along the ecliptic, used in astrology.","The twelve constellations along the Sun’s path.",5,5
+How did ancient people use constellations?,"For navigation, calendars, and storytelling.","They used stars to travel, tell stories, and make calendars.",5,5
+What tools are used for sky watching?,"Telescopes, binoculars, star maps.","We use telescopes, binoculars, and star maps.",5,5
+Why avoid city lights for stargazing?,Light pollution hides faint stars.,"City lights make it too bright to see faint stars.",5,5
+Do planets/stars affect human life?,"No, astrology isn't science; stars are too distant to impact us physically.","They don’t really affect us because they are too far away.",5,5
+What is Polaris?,"The North Star, aligned with Earth's North Pole.","The star that shows where north is.",5,5
+What is a red giant?,"An old, expanded star cooling down (e.g., Betelgeuse).","A very big, old red star that has cooled down.",5,3
+What is a white dwarf?,"A dead star's hot, dense core.","A small, very hot star remnant.",5,3
+What is a neutron star?,A super-dense remnant of a supernova.,"A very tiny, dense star left after an explosion.",5,3
+How is a star's color related to temperature?,Blue = hottest; Red = coolest.,"Hot stars look blue, cooler stars look red.",5,3
+What is a binary star?,Two stars orbiting each other.,"Two stars that go around each other.",5,3
+What is a light-year?,Distance light travels in a year (~9.46 trillion km).,"How far light goes in one year.",5,3
+Why is the Sun a star?,"It's a medium-sized, main-sequence star.","Because it’s a big ball of gas like other stars.",5,2
+What is a pulsar?,A rotating neutron star that emits beams of radiation.,"A star that flashes light.",5,2
+Why are some stars brighter than others?,"Due to size, temperature, and distance from Earth.","Because some are bigger and closer.",5,2
+How do scientists study distant stars?,"Using telescopes, spectroscopy, and space probes.","They use telescopes to look at them.",5,2
+What is a star cluster?,A group of stars held together by gravity.,"Stars close together in space.",5,2
+What is an open cluster?,A loosely bound group of young stars.,"A group of young stars in space.",5,2
+What is a globular cluster?,"A tight, spherical group of old stars.","It’s a group of old stars all close together, I think.",5,1
+What is cosmic dust?,"Tiny particles in space made of silicates, carbon, and ice.","Dust floating somewhere in space.",5,1
+What are exoplanets?,Planets outside our solar system orbiting other stars.,"Planets that are not in our solar system.",5,1
+How do we detect exoplanets?,"Using transit method, radial velocity, and direct imaging.","We can spot them when stars flicker a bit.",5,1
+What is the Hubble Space Telescope?,A telescope in orbit that captures clear space images.,"It’s a big telescope up in space.",5,1
+Why is the night sky dark?,Because the universe is expanding and light hasn't reached us from all directions.,"Because some places in space don’t have light.",5,1
+What causes a shooting star?,A meteoroid burning in Earth's atmosphere.,"I love sunlight",5,0
+What is a comet?,An icy object with a tail that orbits the Sun.,"A space dragon with fire tail.",5,0
+What is an asteroid?,"A rocky body orbiting the Sun, mostly in the asteroid belt.","comet good sky",5,0
+What is a meteorite?,A meteoroid that survives and lands on Earth.,"A space candy fals on Earth.",5,0
+What is the difference between a star and a planet?,Stars produce light; planets reflect it and orbit stars.,"Stars are happy, planets are sad.",5,0
+Why do stars seem to move across the sky?,Due to Earth's rotation.,"Because they are drunk.",5,0
+What happens when a star dies?,"It can become a white dwarf, neutron star, or black hole.","It explodes into dust.",5,0

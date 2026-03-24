@@ -1,0 +1,14 @@
+# Python Virtual Environments
+venv/
+venv2/
+venv_gemini/
+__pycache__/
+
+# Output artifacts (uncomment if you want to ignore them)
+# grading_results.json
+# grading_results.csv
+# grading_dashboard.png
+
+# Secrets
+api_key_info.txt
+.env
