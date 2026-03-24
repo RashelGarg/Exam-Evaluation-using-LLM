@@ -17,7 +17,7 @@
     questions, model_answer, student_answer, total_marks, teacher_marks
 
   Prerequisites:
-    pip install anthropic pandas scikit-learn scipy matplotlib seaborn
+    pip install google-genai pandas scikit-learn scipy matplotlib seaborn
 =======================================================================
 """
 
@@ -28,16 +28,15 @@ import statistics
 import numpy as np
 import pandas as pd
 from typing import Optional
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 # ─────────────────────────────────────────────────────────────────────
 # CONFIGURATION
 # ─────────────────────────────────────────────────────────────────────
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "your-api-key-here")
-if GEMINI_API_KEY != "your-api-key-here":
-    genai.configure(api_key=GEMINI_API_KEY)
-MODEL_NAME        = "gemini-1.5-flash"
+MODEL_NAME     = "gemini-2.0-flash-lite"
 MAX_TOKENS        = 1000
 
 # Self-Consistency: number of runs per judge
@@ -53,6 +52,27 @@ WEIGHTS = {
 
 # Dataset path  (replace with your actual dataset path or use the mec.csv)
 DATASET_PATH = "mec.csv"       # expects: questions, model_answer, student_answer, total_marks, teacher_marks
+
+
+# ─────────────────────────────────────────────────────────────────────
+# 0. RATE-LIMIT RETRY HELPER
+# ─────────────────────────────────────────────────────────────────────
+
+def call_api(model, prompt: str, retries: int = 5) -> str:
+    """Call Gemini API with automatic retry on rate-limit (429) errors."""
+    for attempt in range(retries):
+        try:
+            response = model.models.generate_content(model=MODEL_NAME, contents=prompt)
+            return response.text.strip()
+        except Exception as e:
+            msg = str(e)
+            if "429" in msg or "RESOURCE_EXHAUSTED" in msg:
+                wait = 30 * (attempt + 1)   # 30s, 60s, 90s ...
+                print(f"  [Rate limit hit, waiting {wait}s before retry {attempt+1}/{retries}]")
+                time.sleep(wait)
+            else:
+                raise
+    raise RuntimeError(f"API failed after {retries} retries.")
 
 
 # ─────────────────────────────────────────────────────────────────────
@@ -101,8 +121,7 @@ Respond ONLY in this JSON format (no extra text):
   ]
 }}"""
 
-    response = model.generate_content(prompt)
-    raw = response.text.strip()
+    raw = call_api(model, prompt)
 
     # Strip markdown code fences if present
     if raw.startswith("```"):
@@ -196,8 +215,7 @@ def run_single_judge(
     """Call the LLM once as a specific judge persona. Returns parsed result."""
     prompt = build_judge_prompt(persona, data, rubric, total_marks)
 
-    response = model.generate_content(prompt)
-    raw = response.text.strip()
+    raw = call_api(model, prompt)
 
     # Strip markdown fences
     if raw.startswith("```"):
@@ -347,8 +365,7 @@ Respond ONLY in this JSON format:
   "improvement": "Specific advice on how to improve the answer in 1-2 sentences"
 }}"""
 
-    response = model.generate_content(prompt)
-    raw = response.text.strip()
+    raw = call_api(model, prompt)
 
     if raw.startswith("```"):
         raw = raw.split("```")[1]
@@ -381,8 +398,7 @@ Student Answer: {data['student_answer']}
 
 Reply ONLY with a single integer score between 0 and {total_marks}."""
 
-    response = model.generate_content(prompt)
-    raw = response.text.strip()
+    raw = call_api(model, prompt)
     try:
         score = int("".join(filter(str.isdigit, raw.split()[0])))
         return max(0, min(score, total_marks))
@@ -445,7 +461,7 @@ Original: {data['student_answer']}
 
 Reply ONLY with the rephrased answer, no extra text."""
 
-    rephrase_resp = model.generate_content(rephrase_prompt)
+    rephrase_resp = model.models.generate_content(model=MODEL_NAME, contents=rephrase_prompt)
     rephrased = rephrase_resp.text.strip()
 
     data_original  = data.copy()
@@ -704,8 +720,8 @@ def main():
     print("  Multi-Judging LLM System for Exam Answer Evaluation")
     print("=" * 65)
 
-    # ── Initialize Gemini model ──────────────────────────────────────
-    model = genai.GenerativeModel(MODEL_NAME)
+    # ── Initialize Gemini client ──────────────────────────────────────
+    model = genai.Client(api_key=GEMINI_API_KEY)
 
     # ── Load dataset ─────────────────────────────────────────────────
     print(f"\n📂 Loading dataset: {DATASET_PATH}")
